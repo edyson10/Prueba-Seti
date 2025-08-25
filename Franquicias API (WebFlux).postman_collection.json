@@ -1,0 +1,820 @@
+{
+	"info": {
+		"_postman_id": "f72be48a-2dd8-45ba-8c8d-9367e2fd70d6",
+		"name": "Franquicias API (WebFlux)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32737185"
+	},
+	"item": [
+		{
+			"name": "Franquicias",
+			"item": [
+				{
+					"name": "Crear franquicia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Soporta envelope o objeto directo",
+									"pm.test(\"201 Created\", () => pm.response.code === 201);",
+									"const b = pm.response.json();",
+									"const id = b?.data?.id ?? b?.id;",
+									"pm.expect(id, \"franquicia id\").to.be.a(\"string\").and.not.empty;",
+									"pm.environment.set(\"franquiciaId\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Movistar\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "traer franquicias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Soporta envelope o objeto directo",
+									"pm.test(\"201 Created\", () => pm.response.code === 201);",
+									"const b = pm.response.json();",
+									"const id = b?.data?.id ?? b?.id;",
+									"pm.expect(id, \"franquicia id\").to.be.a(\"string\").and.not.empty;",
+									"pm.environment.set(\"franquiciaId\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"{{nombreFranquicia}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias?includeProductos=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias"
+							],
+							"query": [
+								{
+									"key": "includeProductos",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener franquicia por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}"
+							],
+							"query": [
+								{
+									"key": "includeProductos",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener franquicia por nombre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/by-name?nombre={{nombreFranquicia}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"by-name"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "{{nombreFranquicia}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar franquicia (PATCH)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Ara\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar franquicia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => [200,204].includes(pm.response.code));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sucursales",
+			"item": [
+				{
+					"name": "Agregar sucursal a franquicia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// objeto directo",
+									"pm.test(\"200 OK\", () => pm.response.code === 200);",
+									"const b = pm.response.json();",
+									"pm.environment.set(\"sucursalId\", b?.id ?? b?.data?.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"{{nombreSucursal}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener sucursal por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/sucursales/{{sucursalId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sucursales",
+								"{{sucursalId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar sucursal (PATCH)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Sucursal Actualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sucursales/{{sucursalId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sucursales",
+								"{{sucursalId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar sucursal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200/204\", () => [200,204].includes(pm.response.code));"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/sucursales/{{sucursalId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sucursales",
+								"{{sucursalId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Sucursal por Franquicia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Agregar producto a sucursal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);",
+									"const b = pm.response.json();",
+									"pm.environment.set(\"productoId\", b?.id ?? b?.data?.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"{{nombreProducto}}\",\n  \"stock\": 10\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales/{{sucursalId}}/productos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales",
+								"{{sucursalId}}",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar stock (PATCH)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"stock\": 25\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales/{{sucursalId}}/productos/{{productoId}}/stock",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales",
+								"{{sucursalId}}",
+								"productos",
+								"{{productoId}}",
+								"stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar producto (PATCH general)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Producto Renombrado\",\n  \"stock\": 30\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/{{productoId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"{{productoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar producto de sucursal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"204 No Content\", () => pm.response.code === 204);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales/{{sucursalId}}/productos/{{productoId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales",
+								"{{sucursalId}}",
+								"productos",
+								"{{productoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar productos de sucursal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/franquicias/{{franquiciaId}}/sucursales/{{sucursalId}}/productos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"franquicias",
+								"{{franquiciaId}}",
+								"sucursales",
+								"{{sucursalId}}",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar productos (global)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/search?nombreLike={{nombreLike}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"search"
+							],
+							"query": [
+								{
+									"key": "nombreLike",
+									"value": "{{nombreLike}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos los productos (global)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producto global por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"200 OK\", () => pm.response.code === 200);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/productos/{{productoId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"{{productoId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "franquiciaId",
+			"value": ""
+		},
+		{
+			"key": "sucursalId",
+			"value": ""
+		},
+		{
+			"key": "productoId",
+			"value": ""
+		},
+		{
+			"key": "nombreFranquicia",
+			"value": "Mi Franquicia"
+		},
+		{
+			"key": "nombreSucursal",
+			"value": "Sucursal Centro"
+		},
+		{
+			"key": "nombreProducto",
+			"value": "Producto Demo"
+		},
+		{
+			"key": "nombreLike",
+			"value": ""
+		}
+	]
+}
