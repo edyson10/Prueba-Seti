@@ -13,7 +13,10 @@ RUN mkdir -p /app /cache /tmp && chown -R app:app /app /cache /tmp
 # Copia el JAR (ajusta el path si tu jar no está en la raíz)
 # Por ejemplo, si usas el scaffold de Bancolombia: app-service/build/libs/app-service-*.jar
 # COPY app-service/build/libs/app-service-*.jar app.jar
-COPY *.jar app.jar
+# COPY *.jar app.jar
+# copia el jar construido fuera del contenedor
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
 
 # Ajustes JVM seguros en contenedores
 ENV JAVA_OPTS="-XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError -Djava.security.egd=file:/dev/./urandom"
